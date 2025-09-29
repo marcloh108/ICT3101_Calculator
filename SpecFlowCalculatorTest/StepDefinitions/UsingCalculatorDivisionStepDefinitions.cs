@@ -7,14 +7,13 @@ namespace SpecFlowCalculatorTest.StepDefinitions
     [Binding]
     public class UsingCalculatorDivisionStepDefinitions
     {
-        private Calculator _calculator;
+        private Calculator _calculator = new Calculator();
         private double _result;
 
         // No DI; lazy-create the calculator when needed.
         [When(@"I have entered (.*) and (.*) into the calculator and press divide")]
         public void WhenIHaveEnteredAndIntoTheCalculatorAndPressDivide(double a, double b)
         {
-            _calculator ??= new Calculator();
             _result = _calculator.Divide(a, b);
         }
 
