@@ -210,5 +210,34 @@ namespace ICT3101_Calculator
             return baseSize + added - deleted - modified;
         }
 
+        // Convenience overload for normal use: uses the real FileReader
+        public double GenMagicNum(double input)
+        {
+            return GenMagicNum(input, new FileReader());
+        }
+
+        // Dependency-injected version (what tests will call)
+        public double GenMagicNum(double input, IFileReader fileReader)
+        {
+            double result = 0;
+            int choice = Convert.ToInt16(input);
+
+            // Read numbers; the test will control what this returns
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, "MagicNumbers.txt");
+            string[] magicStrings = fileReader.Read(path);
+
+            if (choice >= 0 && choice < magicStrings.Length)
+            {
+                if (double.TryParse(magicStrings[choice], out var parsed))
+                    result = parsed;
+            }
+
+            // Lab rule: if negative, return positive double magnitude; if positive, double the value
+            // -2  -> 4  ( -2 * -2 )
+            // 50  -> 100 ( 2 * 50 )
+            result = (result > 0) ? (2 * result) : (-2 * result);
+            return result;
+        }
+
     }
 }
