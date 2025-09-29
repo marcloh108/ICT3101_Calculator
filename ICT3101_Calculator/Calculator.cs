@@ -77,15 +77,8 @@ namespace ICT3101_Calculator
         {
             // Throw if either is zero (covers 0/0, 0/x, x/0)
             if (num1 == 0 && num2 == 0) return 1;
-            if (num1 == 0 && num2 == 0) return 1;
             if (num2 == 0) return double.PositiveInfinity;
             if (num1 == 0) return 0;
-
-           
-            
-            if (num1 == 0 || num2 == 0)
-                throw new ArgumentException("Inputs to Divide cannot contain zero.");
-
             return (num1 / num2);
         }
 

@@ -48,12 +48,18 @@ namespace ICT3101_Calculator.UnitTests
 
         // Step 14a/b — Divide with zero(s) throws
         [Test]
-        [TestCase(0, 0)]
-        [TestCase(0, 10)]
-        [TestCase(10, 0)]
-        public void Divide_WithZerosAsInputs_ResultThrowArgumentException(double a, double b)
+        [TestCase(0, 0, 1)]
+        [TestCase(0, 10, 0)]
+        public void Divide_WithZerosAsInputs_ReturnsExpected(double a, double b, double expected)
         {
-            Assert.That(() => _calculator.Divide(a, b), Throws.ArgumentException);
+            var result = _calculator.Divide(a, b);
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        public void Divide_ByZero_ReturnsPositiveInfinity()
+        {
+            var result = _calculator.Divide(10, 0);
+            Assert.That(double.IsPositiveInfinity(result), Is.True);
         }
 
         // Factorial tests
